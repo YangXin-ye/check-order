@@ -1,0 +1,310 @@
+@charset "utf-8";
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    word-wrap: break-word;
+}
+
+html {
+    font-family: "microsoft yahei", sans-serif;
+    -webkit-text-size-adjust: 100%;
+    /*禁止手机横屏竖屏切换自动缩放字体大小*/
+    -ms-text-size-adjust: 100%;
+    /*font-size:62.5%;10÷16×100%=62.5%*/
+    /* -webkit-user-select: none; */
+    /*不允许选中文本*/
+    /* -moz-user-select: -moz-none; */
+    /* -webkit-touch-callout: none; */
+    /*系统菜单被禁用*/
+    /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
+    /*清除tap时背景颜色高亮*/
+    -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+}
+
+a:focus,
+input:focus,
+p:focus,
+span:focus,
+div:focus {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+    width: 100%;
+    font-size: 12px;
+    height: 100%;
+    /* background: #efeff4; */
+    -webkit-font-smoothing: antialiased;
+    /*字体平滑清晰*/
+    -moz-osx-font-smoothing: grayscale;
+    /*字体平滑清晰*/
+    min-height: 100%;
+    -webkit-overflow-scrolling: touch;
+    -webkit-text-size-adjust: none !important;
+    -webkit-text-size-adjust: 100% !important;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+iframe,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+button,
+input,
+textarea,
+fieldset,
+th,
+td,
+header,
+footer,
+section,
+aside,
+details,
+menu,
+article,
+section,
+nav,
+address,
+hgroup,
+figure,
+figcaption,
+legend {
+    margin: 0;
+    padding: 0;
+}
+
+::-webkit-scrollbar {
+    /*隐藏滚动条 Chrome,Safari*/
+    width: 0;
+    height: 0;
+}
+
+ul,
+ol,
+dl {
+    list-style-type: none;
+}
+
+img {
+    border: 0;
+}
+
+audio,
+canvas,
+progress,
+video {
+    display: inline-block;
+}
+
+audio:not([controls]) {
+    /*音频文件档没有控制的时候，隐藏*/
+    display: none;
+}
+
+svg:not(:root) {
+    /*svg 如果没有跟根元素代码就隐藏*/
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    background: transparent;
+    color: #333;
+}
+
+:active {
+    outline: none;
+}
+
+:focus {
+    outline: none;
+}
+
+[disabled] {
+    cursor: default;
+}
+
+iframe {
+    border: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+th,
+var {
+    font-style: normal;
+}
+
+.pl-8 {
+    padding-left: 8px;
+}
+
+.pl-15 {
+    padding-left: 15px;
+}
+
+.m-8 {
+    margin: 8px;
+}
+
+.m-16 {
+    margin: 16px;
+}
+
+.pl-10 {
+    padding-left: 10px;
+}
+
+.pr-10 {
+    padding-right: 10px;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+
+/*宽*/
+
+.col-5 {
+    width: 50%;
+}
+
+
+/*margin值*/
+
+.mb-25 {
+    margin-bottom: 25px;
+}
+
+.mb-15 {
+    margin-bottom: 14.5px;
+}
+
+.mb-64 {
+    margin-bottom: 64px;
+}
+
+pre {
+    white-space: pre-wrap;
+    overflow: auto;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="text"],
+input[type="password"] {
+    -webkit-appearance: none;
+    /*去掉默认样式*/
+    outline: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    cursor: pointer;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+i,
+span,
+time,
+a {
+    display: inline-block;
+}
+
+small,
+em,
+i,
+strong {
+    font-style: normal;
+    font-weight: normal;
+}
+
+
+/*表格*/
+
+table {
+    width: 100%;
+    empty-cells: show;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table th,
+table td {
+    text-align: left;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+
+/*浮动*/
+
+.fl {
+    float: left !important;
+}
+
+.fr {
+    float: right !important;
+}
+
+
+/*清除浮动*/
+
+.clearfix:after,
+.cl:after,
+.cl .clearfix {
+    content: "\20";
+    display: block;
+    clear: both;
+}
+
+.cannotSelect {
+    -webkit-touch-callout:none !important;  /*系统默认菜单被禁用*/
+    -webkit-user-select:none !important; /*webkit浏览器*/
+    -khtml-user-select:none !important; /*早期浏览器*/
+    -moz-user-select:none !important;/*火狐*/
+    -ms-user-select:none !important; /*IE10*/
+    user-select:none !important;
+}

@@ -1,0 +1,126 @@
+
+// 生成margin相关  以5为间隔
+.marginPreset(@i) when(@i <= 100){
+	.m-t-@{i} {
+		 margin-top: @i * 1px ;
+	}
+	.m-b-@{i} {
+		margin-bottom: @i * 1px;
+	}
+	.m-l-@{i} {
+		margin-left: @i * 1px;
+	}
+	.m-r-@{i} {
+		margin-right: @i * 1px;
+	}
+	.m-bt-@{i} {
+		margin-bottom: @i * 1px 0;
+	}
+	.m-lr-@{i} {
+		margin-bottom: 0 @i * 1px;
+	}
+	.m-@{i} {
+		margin: @i * 1px;
+	}
+
+	.marginPreset((@i+5));
+}
+.marginPreset(0);
+
+// 生成padding相关  以5为间隔
+.paddingPreset(@i) when (@i <= 100) {
+	.p-t-@{i} {
+		padding-top: @i * 1px;
+	}
+	.p-b-@{i} {
+		padding-bottom: @i * 1px;
+	}
+	.p-l-@{i} {
+		padding-left: @i * 1px;
+	}
+	.p-r-@{i} {
+		padding-right: @i * 1px;
+	}
+	.p-bt-@{i} {
+		padding: @i * 1px 0;
+	}
+	.p-lr-@{i} {
+		padding: 0 @i * 1px;
+	}
+
+	.p-@{i} {
+		padding: @i * 1px;
+	}
+
+	.paddingPreset((@i+5))
+}
+.paddingPreset(0);
+
+// 生成百分比长度 5为间隔
+.widthPreset(@i) when (@i <= 100) {
+	.w-@{i} {
+		width: @i * 1%;
+	}
+	.widthPreset((@i+5))
+}
+.widthPreset(0);
+
+// 生成字体 以2为间隔
+.fontPreset(@i) when (@i <= 50) {
+	.fz-@{i} {
+		font-size: @i * 1px;
+	}
+	.fontPreset((@i + 2))
+}
+.fontPreset(0);
+
+// 行高 5为间隔
+.lineHeightPreset(@i) when (@i <= 50) {
+	.lh-@{i} {
+		line-height: @i * 1px;
+	}
+	.lineHeightPreset((@i+5))
+}
+.lineHeightPreset(0);
+
+// 圆角 2为间隔
+.borderRadiusPreset(@i) when (@i <= 20) {
+	.b-a-@{i} {
+		border-radius: @i * 1px !important;
+	}
+	.borderRadiusPreset((@i+2))
+}
+.borderRadiusPreset(0);
+
+// 超出行数，自动显示行尾省略号，最多5行  .omit-line-1,...,.omit-line-5
+.omit-line-1{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.textOverflowPreset(@i) when (@i <= 5) {
+	.omit-line-@{i} {
+		display: -webkit-box!important;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		word-break: break-all;
+		-webkit-line-clamp: @i;
+		-webkit-box-orient: vertical!important;
+	}
+	.textOverflowPreset((@i+1))
+}
+.textOverflowPreset(2);
+
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+.bold{
+	font-weight: bold;
+}

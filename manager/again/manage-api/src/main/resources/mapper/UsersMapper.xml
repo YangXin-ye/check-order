@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iweb.mapper.UsersMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        u_id, username, password, name, avatar, gender, role
+    </sql>
+
+    <select id="getUserInfo" resultType="com.iweb.vo.IndexUserInfoVO">
+        SELECT u.u_id,
+        u.username,
+        u.avatar,
+        u.role
+        FROM users u
+        <where>
+            u.u_id = #{userId}
+        </where>
+    </select>
+
+</mapper>
