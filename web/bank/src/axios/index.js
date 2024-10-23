@@ -33,8 +33,8 @@ service.interceptors.response.use(
         console.log("asdas213132");
         console.log(res);
         if (res.code !== 0) {
-            Message.error(res.message || 'Error');
-            return Promise.reject(new Error(res.message || 'Error'));
+            Message.error(res.msg || 'Error');
+            return Promise.reject(new Error(res.msg || 'Error'));
         } else {
             console.log("sadoooooo");
             return res;

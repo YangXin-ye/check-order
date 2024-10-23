@@ -34,3 +34,12 @@ export const getBudgetExceed = ()=>{
     return axios.get("/accountion/record/getBudgetExceed");
 }
 
+export function importData(formData){
+    return axios.post('/importData', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+
+

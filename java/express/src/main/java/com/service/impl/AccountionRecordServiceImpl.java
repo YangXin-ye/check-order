@@ -222,9 +222,11 @@ public class AccountionRecordServiceImpl extends ServiceImpl<AccountionRecordMap
     public void insert(AccountionRecord accountionRecord) {
         //查询类型
         Classify classify = classifyService.lambdaQuery().eq(Classify::getName, accountionRecord.getTypeName()).list().get(0);
-        User loginUser = userService.getLoginUser();
         accountionRecord.setClassifyId(classify.getId());
-        accountionRecord.setUserId(loginUser.getId());
+        if(accountionRecord.getUserId() == null){
+            User loginUser = userService.getLoginUser();
+            accountionRecord.setUserId(loginUser.getId());
+        }
         accountionRecord.setYear(getYear(accountionRecord.getTime()) + "");
         accountionRecord.setMonth(getMonth(accountionRecord.getTime()) + "");
         accountionRecord.setDay(getDayFromDate(accountionRecord.getTime()) + "");

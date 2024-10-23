@@ -3,6 +3,8 @@
     <div class="button">
       <li class="on" @click="goAccount">去记账</li>
       <li class="on" @click="goClassfiy">去分类</li>
+      <li class="on" @click="downloadTemplate">下载模板</li>
+      <li class="on" @click="importFile">导入文件</li>
     </div>
     <!-- 月份 -->
     <div class="month">
@@ -160,7 +162,8 @@
 </template>
 <script>
 import * as echarts from 'echarts'
-import {getMonthData,getDataDetail} from './../../api/accountionRecord'
+import {getMonthData,getDataDetail,importData} from './../../api/accountionRecord'
+import { Message } from 'element-ui';
 export default {
   name: 'income',
   data() {
@@ -216,6 +219,39 @@ export default {
       });
       this.shouData =shou;
       this.zhiData = zhi;
+    },
+    downloadTemplate() {
+      // 调用 GET 接口下载模板
+      const url = 'http://localhost:8089/express/downloadTemplate'; // 替换为实际的接口 URL
+      window.open(url); // 打开下载链接
+    },
+    importFile() {
+      // 处理文件导入逻辑，例如打开文件选择对话框
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.xls, .xlsx'; // 可以根据需要修改支持的文件类型
+
+      input.onchange = async (event) => {
+        const file = event.target.files[0]; // 获取用户选择的文件
+        if (file) {
+          const formData = new FormData();
+          formData.append('file', file); // 将文件添加到 FormData
+
+          try {
+            await importData(formData); // 调用导入数据的方法
+            Message({
+              message: '导入成功',
+              type: 'success', // 类型可选：success, warning, info, error
+              duration: 3000 // 持续时间（毫秒）
+            });
+          } catch (error) {
+          }
+        } else {
+          console.warn('没有选择文件');
+        }
+      };
+
+      input.click(); // 模拟点击打开文件选择对话框
     },
     goAccount() {
       this.$router.push('/account')
