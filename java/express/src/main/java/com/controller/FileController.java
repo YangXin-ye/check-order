@@ -34,7 +34,7 @@ import java.util.UUID;
 public class FileController {
 
 
-    public static final String FILE_PATH = "/Users/zhangguohao/Desktop/twoWork/xianyu_projectx/pingtai/大哥项目/收支系统/check-order/file/";
+    public static final String FILE_PATH = "";
 
     @Autowired
     private CommonFileService commonFileService;

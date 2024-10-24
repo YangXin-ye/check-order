@@ -27,33 +27,40 @@ public class User implements Serializable {
     /**
      * 用户名
      */
+    @TableField("username")
     private String username;
 
     /**
      * 密码
      */
+    @TableField("password")
     private String password;
 
     /**
      * 手机号
      */
+    @TableField("phone")
     private String phone;
 
     /**
      * 真实姓名
      */
+    @TableField("name")
     private String name;
 
     /**
      * 0男 1女 2保密
      */
+    @TableField("sex")
     private Integer sex;
 
     /**
      * 年龄
      */
+    @TableField("age")
     private Integer age;
 
+    @TableField("photo")
     private Long photo;
 
     /**
@@ -61,6 +68,7 @@ public class User implements Serializable {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("create_time")
     private Date createTime;
 
 
@@ -69,6 +77,7 @@ public class User implements Serializable {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("update_time")
     private Date updateTime;
 
 

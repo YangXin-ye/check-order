@@ -1,7 +1,10 @@
 package com.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dto.LoginDto;
 import com.dto.RegisterDto;
@@ -145,6 +148,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
 
+    public void selectByName(String name){
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper();
+        lambdaQueryWrapper.like(User::getName,name);
+        List<User> list = this.list(lambdaQueryWrapper);
+    }
+
+    public void upUser(){
+        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        lambdaUpdateWrapper.set(User::getPassword,"123456");
+        lambdaUpdateWrapper.like(User::getName,"张");
+        this.update(lambdaUpdateWrapper);
+    }
+
+    public void delete(){
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userLambdaQueryWrapper.like(User::getName,"张");
+        remove(userLambdaQueryWrapper);
+    }
     public int generateFourDigitRandomNumber() {
         return ThreadLocalRandom.current().nextInt(1000, 10000);
     }
