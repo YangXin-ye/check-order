@@ -308,6 +308,7 @@ private RedisTemplate redisTemplate;
 @RequestMapping("/test/redis")
 public class RedisTestController {
 
+    //这个类是 Spring Data Redis 中的一个模板类，它用于简化与 Redis 数据库的交互操作
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
 
@@ -418,6 +419,10 @@ public class RedisTestController {
 ```
 ### 2、业务数据存储场景
 ```java
+
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
+
     //吧数据同步到redis中
     public void syncRedisData(){
         User loginUser = userService.getLoginUser();
