@@ -36,7 +36,7 @@ export default {
         date: ''
       },
       value: '',
-      columns: [ '建设银行', '农业银行', '工商银行', '招商银行', '交通银行'],
+      columns: [ '建设银行', '农业银行', '工商银行'],
       showPicker: false,
       showCalendar: false
     }

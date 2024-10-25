@@ -32,18 +32,17 @@ public class BankController {
         bank.setBankType("储蓄卡");
         switch (bank.getName()){
             case "建设银行":
-                bank.setBankLogo("/img/jianhang.5f2be68a.svg");
+                bank.setBankLogo("/img/jianhang.svg");
                 bank.setLimitNum("20");
                 bank.setBankBg("#3973c4");
                 break;
             case "工商银行":
-                bank.setBankLogo("/img/gongshang.041b6acf.svg");
+                bank.setBankLogo("/img/gongshang.svg");
                 bank.setLimitNum("50");
                 bank.setBankBg("#fe6063");
                 break;
             case "农业银行":
-            default:
-                bank.setBankLogo("/img/nonghang.077a47b6.svg");
+                bank.setBankLogo("/img/nonghang.svg");
                 bank.setLimitNum("40");
                 bank.setBankBg("#32977f");
                 break;
