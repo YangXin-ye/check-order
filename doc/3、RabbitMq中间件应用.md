@@ -193,11 +193,14 @@ public class RabbitMqConfig {
 @Service
 public class RabbitMqSender {
 
+    //Spring AMQP (Advanced Message Queuing Protocol) 提供的一个类，用于与 RabbitMQ 消息代理进行通信
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
     public void send(String exchange, String routingKey, String message) {
+        //调用 convertAndSend 方法进行发送消息，message是消息内容
         rabbitTemplate.convertAndSend(exchange, routingKey, message);
+        //打印发送成功
         System.out.println("消息已经发送： " + message);
     }
 }
@@ -211,6 +214,7 @@ public class RabbitMqSender {
 @Service
 public class RabbitMqReceiver {
 
+    // @RabbitListener 注解进行监听 testQueue 队列中的数据
     @RabbitListener(queues = "testQueue")
     public void receive(String message) {
         System.out.println("我收到了一条消息,消息内容为: " + message);
