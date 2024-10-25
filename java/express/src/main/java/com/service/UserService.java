@@ -38,4 +38,6 @@ public interface UserService extends IService<User> {
 
 
     String sendVerificationCode(String phone);
+
+    void sendEmailCoe(String email);
 }

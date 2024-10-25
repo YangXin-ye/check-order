@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -63,6 +64,10 @@ public class User implements Serializable {
     @TableField("photo")
     private Long photo;
 
+    private String email;
+
+    private String address;
+
     /**
      * 创建时间
      */
@@ -86,5 +91,11 @@ public class User implements Serializable {
      */
     @TableField("`delete`")
     private Integer delete;
+
+    @TableField(exist = false)
+    private List<String> addressList;
+
+    @TableField(exist = false)
+    private String emailCode;
 
 }

@@ -11,6 +11,7 @@ import com.dto.RegisterDto;
 import com.dto.UpdateUserDto;
 import com.entity.User;
 import com.exception.BizException;
+import com.service.EmailSender;
 import com.service.UserService;
 import com.dao.UserMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.util.Date;
@@ -45,6 +47,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private EmailSender emailSender;
     @Override
     public String login(LoginDto loginDto) {
         Integer loginType = loginDto.getLoginType();
@@ -145,6 +149,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         redisTemplate.opsForValue().set("loginPhone::" + phone,s,1, TimeUnit.MINUTES);
         System.out.println(phone+" 手机获取验证码，验证码 = "+s);
         return s;
+    }
+
+    @Override
+    public void sendEmailCoe(String email) {
+        String code = String.valueOf(generateFourDigitRandomNumber());
+        redisTemplate.opsForValue().set("registerEmail::" + email,code,5, TimeUnit.MINUTES);
+        try {
+            emailSender.sendVerificationCode(email,code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
 

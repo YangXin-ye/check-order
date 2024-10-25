@@ -30,6 +30,9 @@
                 @click.prevent="login(2)"
             />
           </div>
+          <div class="form_item">
+            <el-button @click="showRegisterModal = true" type="text">立即注册</el-button>
+          </div>
         </div>
         <div v-show="cur == 1" class="Cbody_item">
           <div class="form_item flex-container"> <!-- 添加 flex-container 类 -->
@@ -59,11 +62,63 @@
       </div>
     </div>
     <div class="loginrslider fl"></div>
+
+    <!-- 注册弹框 -->
+    <el-dialog :visible.sync="showRegisterModal" title="用户注册" width="650px" center>
+      <el-form :model="registerForm" ref="registerForm" :rules="rules" label-width="100px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="registerForm.username" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="registerForm.password" placeholder="请输入密码"></el-input>
+        </el-form-item>
+
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="registerForm.name" placeholder="请输入真实姓名"></el-input>
+        </el-form-item>
+
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="registerForm.phone" placeholder="请输入手机号"></el-input>
+        </el-form-item>
+
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="registerForm.email" placeholder="请输入邮箱"></el-input>
+        </el-form-item>
+
+        <el-form-item label="验证码" prop="emailCode">
+          <el-input v-model="registerForm.emailCode" placeholder="请输入邮箱验证码"></el-input>
+        </el-form-item>
+
+<!--        <el-form-item label="年龄" prop="age">-->
+<!--          <el-input-number v-model="registerForm.age" :min="1" placeholder="请输入年龄"></el-input-number>-->
+<!--        </el-form-item>-->
+
+<!--        <el-form-item label="性别" prop="sex">-->
+<!--          <el-radio-group v-model="registerForm.sex">-->
+<!--            <el-radio :label="1">男</el-radio>-->
+<!--            <el-radio :label="2">女</el-radio>-->
+<!--          </el-radio-group>-->
+<!--        </el-form-item>-->
+
+        <!-- Province, City, Area Selection -->
+        <el-form-item label="地址" prop="address">
+          <el-cascader v-model="registerForm.addressList" :options="options"></el-cascader>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="sendEmailCodeFun">获取验证码</el-button>
+          <el-button type="primary" @click="handleRegister">注册</el-button>
+          <el-button @click="showRegisterModal = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
-import {login,sendVerificationCode} from './../../api/login'
+import {login,sendVerificationCode,getDataProvinceAndCityAndArea,sendEmailCode,registerUser} from './../../api/login'
 import { Message } from 'element-ui';
 
 
@@ -77,10 +132,92 @@ export default {
       rememberMe: false, // 记住密码选项
       loginType:2,
       verificationCode:'',
-      phone:''
+      phone:'',
+      showRegisterModal: false,
+      registerForm: {
+        username: '',
+        password: '',
+        name: '',
+        phone: '',
+        addressList:'',
+        email:'',
+        emailCode:''
+      },
+      provinces: [],
+      cities: [],
+      areas: [],
+      options: [],
+      rules: {
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
+        phone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+        email: [{ required: true, message: '请输入邮箱', trigger: 'blur' }],
+        // age: [{ required: true, message: '请输入年龄', trigger: 'blur' }],
+        // sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
+        emailCode: [{ required: true, message: '请输入邮箱验证码', trigger: 'blur' }],
+        addressList: [{ required: true, message: '请选择地址', trigger: 'change' }]
+      }
     }
   },
+  created() {
+    this.getTree();
+    console.log("123123213123");
+  },
   methods: {
+    async handleRegister() {
+      this.$refs.registerForm.validate(async (valid) => {
+        if (valid) {
+          // Proceed with registration logic
+          console.log("Registration form is valid:", this.registerForm);
+          try {
+            const response = await registerUser(this.registerForm);
+            if (response.code === 0) {
+              Message.success("注册成功！");
+              this.showRegisterModal = false;
+            } else {
+              Message.error(response.message || "注册失败");
+            }
+          } catch (error) {
+            // Message.error("注册请求出错");
+            // console.error(error);
+          }
+        } else {
+          console.log("Form validation failed.");
+          return false;
+        }
+      });
+    },
+    async sendEmailCodeFun() {
+      if(this.registerForm.email == null || this.registerForm.email==''){
+        Message({
+          message: '邮箱不能为空',
+          type: 'error', // 类型可选：success, warning, info, error
+          duration: 3000 // 持续时间（毫秒）
+        });
+        return;
+      }
+      if (!this.isValidEmail(this.registerForm.email)) {
+        Message({
+          message: '邮箱格式不正确',
+          type: 'error', // 类型可选：success, warning, info, error
+          duration: 3000 // 持续时间（毫秒）
+        });
+      } else {
+        //发送验证码
+        let res = await sendEmailCode(this.registerForm.email);
+        Message({
+          message: '验证码发送成功',
+          type: 'success', // 类型可选：success, warning, info, error
+          duration: 3000 // 持续时间（毫秒）
+        });
+        console.log(res);
+      }
+    },
+    isValidEmail(email) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
+    },
     async login(loginType) {
       // 发送登录请求
       let response = await login({
@@ -116,6 +253,47 @@ export default {
         // 处理错误，例如提示用户
         console.error('获取验证码失败:', error);
       }
+    },
+    getTree() {
+      const level = {
+        level: 'province'
+      }
+      getDataProvinceAndCityAndArea({ params: level }).then(res => {
+        // console.log(res);
+        this.options = res.data
+        // console.log(this.options);
+
+        this.options.forEach(item => {
+          item.value = item.id
+          item.label = item.name
+
+          const levelCity = {
+            districtId: item.id,
+            level: 'province'
+          }
+          getDataProvinceAndCityAndArea({ params: levelCity }).then(res => {
+            // console.log(res);
+            item.children = res.data
+            item.children.forEach(item => {
+              item.value = item.id
+              item.label = item.name
+              const levelArea = {
+                districtId: item.id,
+                level: 'city'
+              }
+              getDataProvinceAndCityAndArea({ params: levelArea }).then(res => {
+                // console.log(res);
+                item.children = res.data
+                item.children.forEach(item => {
+                  item.value = item.id
+                  item.label = item.name
+                })
+                // console.log(item.children);
+              })
+            })
+          })
+        })
+      })
     }
   }
 }

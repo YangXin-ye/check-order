@@ -9,3 +9,15 @@ export function login(data) {
 export function sendVerificationCode(data) {
     return axios.get('/user/sendVerificationCode?phone='+data)
 }
+
+export const getDataProvinceAndCityAndArea = (params) => {
+    return axios.get('/district/listDistrict', params)
+}
+
+export function sendEmailCode(data) {
+    return axios.get('/user/sendEmailCode?email='+data)
+}
+
+export function registerUser(data){
+    return axios.post('/user/register',data)
+}

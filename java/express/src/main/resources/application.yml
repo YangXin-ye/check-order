@@ -53,3 +53,7 @@ mybatis-plus:
     call-setters-on-nulls: true
     #springboot 项目mybatis plus 设置 jdbcTypeForNull (oracle数据库需配置JdbcType.NULL, 默认是Other)
     jdbc-type-for-null: 'null'
+
+email:
+  account: 2067837757@qq.com
+  authorizationCode: mmzsxqxxdnpwbcah

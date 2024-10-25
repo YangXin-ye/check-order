@@ -28,7 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/user/login","/file/download","/downloadTemplate","/mq/test/sendMsg",
-                        "/test/redis/setRedisData","/test/redis/getRedisData");
+                        "/test/redis/setRedisData","/test/redis/getRedisData","/user/sendEmailCoe");
     }
 
 }
