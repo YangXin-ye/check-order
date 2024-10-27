@@ -14,6 +14,7 @@ import com.exception.BizException;
 import com.service.EmailSender;
 import com.service.UserService;
 import com.dao.UserMapper;
+import com.utils.SendMsgUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,6 +147,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }
         //生成验证码存储到redis中
         String s = String.valueOf(generateFourDigitRandomNumber());
+        //发送验证码
+        try {
+            SendMsgUtil.sendCode(phone,s);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("验证码发送失败 e={}",e);
+        }
         redisTemplate.opsForValue().set("loginPhone::" + phone,s,1, TimeUnit.MINUTES);
         System.out.println(phone+" 手机获取验证码，验证码 = "+s);
         return s;

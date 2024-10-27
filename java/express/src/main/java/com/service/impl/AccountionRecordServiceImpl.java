@@ -250,15 +250,7 @@ public class AccountionRecordServiceImpl extends ServiceImpl<AccountionRecordMap
         calendar.setTime(date); // 设置时间
         return calendar.get(Calendar.DAY_OF_MONTH); // 获取日
     }
-    //获取年份天数
-    public static int getTotalDaysOfYear(int year) {
-        // 判断闰年规则
-        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-            return 366; // 闰年有 366 天
-        } else {
-            return 365; // 平年有 365 天
-        }
-    }
+
 
     // 获取月份
     public static int getMonth(Date date) {

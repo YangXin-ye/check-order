@@ -165,6 +165,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>dysmsapi20170525</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>4.1.2</version>
