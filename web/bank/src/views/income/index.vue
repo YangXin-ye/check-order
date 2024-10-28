@@ -9,12 +9,8 @@
     <!-- 月份 -->
     <div class="month">
       <ul>
-        <li
-            v-for="month in months"
-            :key="month.value"
-            :class="nav === month.value ? 'on' : ''"
-            @click="changeNav(month.value)"
-        >
+        <li v-for="month in months" :key="month.value" :class="nav === month.value ? 'on' : ''"
+            @click="changeNav(month.value)">
           {{ month.label }}
         </li>
       </ul>
@@ -25,21 +21,21 @@
         <li>
           <p>
             <i>¥</i>
-            {{this.monthData.totalIncome}}
+            {{ this.monthData.totalIncome }}
           </p>
           <span>收入</span>
         </li>
         <li>
           <p>
             <i>¥</i>
-            {{this.monthData.totalPay}}
+            {{ this.monthData.totalPay }}
           </p>
           <span>支出</span>
         </li>
         <li>
           <p>
             <i>¥</i>
-            {{this.monthData.averageDayPay}}
+            {{ this.monthData.averageDayPay }}
             <span>/天</span>
           </p>
           <span>日均支出</span>
@@ -53,83 +49,76 @@
         <div class="type">
           <span :class="type == 1 ? 'on' : ''" @click="changeType(1)">收入</span>
           <span :class="type == 2 ? 'on' : ''" @click="changeType(2)">支出</span>
+          <span :class="type == 3 ? 'on' : ''" @click="changeType(3)">全部</span>
         </div>
       </div>
       <div class="detailOne">
+        <div style="display: flex; justify-content: space-around;">
+          <div>
+            <span>备注</span>
+          </div>
+          <div>
+            <span>创建时间</span>
+          </div>
+          <div>
+            <span>收入/支出</span>
+          </div>
+        </div>
         <ul v-if="type == 1">
           <li v-for="(transaction, index) in shouData" :key="index">
             <div class="title">
-              <span>{{ transaction.remark }}</span>
+              <div style=" margin-left: 30px; ">
+                <span>{{ transaction.remark }}</span>
+              </div>
             </div>
-            <span>{{ transaction.type ==1 ? '-' : '+' }}{{ transaction.price }}</span>
+            <div class="title">
+              <span>{{ transaction.createTime }}</span>
+            </div>
+            <div class="title">
+              <div style=" margin-left: 45px; ">
+                <span>{{ transaction.type == 1 ? '-' : '+' }}{{ transaction.price }}</span>
+              </div>
+            </div>
           </li>
-<!--          <li>-->
-<!--            <div class="title">-->
-<!--              <div class="title_inner">-->
-<!--                <i class="money"></i>-->
-<!--                <span>教育基金</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="num">+180</div>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <div class="title">-->
-<!--              <div class="title_inner">-->
-<!--                <i class="money"></i>-->
-<!--                <span>稳定收益债券</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="num">+14100</div>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <div class="title">-->
-<!--              <div class="title_inner">-->
-<!--                <i class="money"></i>-->
-<!--                <span>工资</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="num">+18100</div>-->
-<!--          </li>-->
         </ul>
-        <ul v-else>
+        <ul v-else-if="type == 2">
           <li v-for="(transaction, index) in zhiData" :key="index">
             <div class="title">
-              <span>{{ transaction.remark }}</span>
+              <div style=" margin-left: 30px; ">
+                <span>{{ transaction.remark }}</span>
+              </div>
             </div>
-            <span>{{ transaction.type ==1 ? '-' : '+' }}{{ transaction.price }}</span>
+            <div class="title">
+              <span>{{ transaction.createTime }}</span>
+            </div>
+            <div class="title">
+              <div style=" margin-left: 45px; ">
+                <span>{{ transaction.type == 1 ? '-' : '+' }}{{ transaction.price }}</span>
+              </div>
+            </div>
           </li>
-<!--          <li>-->
-<!--            <div class="title">-->
-<!--              <div class="title_inner">-->
-<!--                <i class="edu"></i>-->
-<!--                <span>吃饭支出</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="num">-580</div>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <div class="title">-->
-<!--              <div class="title_inner">-->
-<!--                <i class="edu"></i>-->
-<!--                <span>购物支出</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="num">-4100</div>-->
-<!--          </li>-->
-<!--          <li>-->
-<!--            <div class="title">-->
-<!--              <div class="title_inner">-->
-<!--                <i class="edu"></i>-->
-<!--                <span>房贷支出</span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="num">-54100</div>-->
-<!--          </li>-->
+        </ul>
+        <ul v-else-if="type == 3">
+          <li v-for="(transaction, index) in allData" :key="index">
+            <div class="title">
+              <div style=" margin-left: 30px; ">
+                <span>{{ transaction.remark }}</span>
+              </div>
+            </div>
+            <div class="title">
+              <span>{{ transaction.createTime }}</span>
+            </div>
+            <div class="title">
+              <div style=" margin-left: 45px; ">
+                <span>{{ transaction.type == 1 ? '-' : '+' }}{{ transaction.price }}</span>
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
     </div>
     <!-- 明细 -->
-    <div class="detail">
+    <!-- <div class="detail">
       <div class="cate">
         <span :class="cate == 2 ? 'on' : ''" @click="changeCate(2)">收支明细</span>
       </div>
@@ -157,12 +146,12 @@
           <span>{{ transaction.type ==1 ? '-' : '+' }}{{ transaction.price }}</span>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import * as echarts from 'echarts'
-import {getMonthData,getDataDetail,importData} from './../../api/accountionRecord'
+import { getMonthData, getDataDetail, importData } from './../../api/accountionRecord'
 import { Message } from 'element-ui';
 export default {
   name: 'income',
@@ -175,50 +164,52 @@ export default {
         { value: 11, label: '11月' },
         { value: 12, label: '12月' }
       ],
-      monthData:{},
+      monthData: {},
       nav: 10, // 月份导航
       type: 2, // 图表类型
       cate: 2, // 明细分类
       chart: null, // 图表
       chartOptions: null, // 图表配置项
       typeTitle: '消费支出',
-      detailData:[],
-      shouData:[],
-      zhiData:[]
+      detailData: [],
+      shouData: [],
+      zhiData: [],
+      allData: []
     }
   },
-  created(){
+  created() {
     this.getData();
     this.getDetailData();
   },
   mounted() {
-    this.$nextTick(function () {
-      this.initChart()
-    })
-    window.onresize = function () {
-      this.chart.resize()
-    }
+    // this.$nextTick(function () {
+    //   this.initChart()
+    // })
+    // window.onresize = function () {
+    //   this.chart.resize()
+    // }
   },
   methods: {
-    async getData(){
+    async getData() {
       let res = await getMonthData(this.nav);
       this.monthData = res.data;
     },
-    async getDetailData(){
+    async getDetailData() {
       let res = await getDataDetail(this.nav);
       this.detailData = res.data;
       let shou = [];
       let zhi = [];
-      res.data.forEach(item =>{
-        if(item.type==2){
+      res.data.forEach(item => {
+        if (item.type == 2) {
           shou.push(item);
         }
-        if(item.type ==1){
+        if (item.type == 1) {
           zhi.push(item);
         }
       });
-      this.shouData =shou;
+      this.shouData = shou;
       this.zhiData = zhi;
+      this.allData = this.shouData.concat(this.zhiData);
     },
     downloadTemplate() {
       // 调用 GET 接口下载模板
@@ -381,21 +372,21 @@ export default {
             areaStyle: {
               normal: {
                 color: new echarts.graphic.LinearGradient(
-                  0,
-                  0,
-                  0,
-                  1,
-                  [
-                    {
-                      offset: 0,
-                      color: '#e0f9f5'
-                    },
-                    {
-                      offset: 0.8,
-                      color: '#e0f9f5'
-                    }
-                  ],
-                  false
+                    0,
+                    0,
+                    0,
+                    1,
+                    [
+                      {
+                        offset: 0,
+                        color: '#e0f9f5'
+                      },
+                      {
+                        offset: 0.8,
+                        color: '#e0f9f5'
+                      }
+                    ],
+                    false
                 )
               }
             },
@@ -417,12 +408,10 @@ export default {
       this.type = item
       if (item == 1) {
         this.typeTitle = '转账收入'
-        this.chartOptions.series[0].data = [8, 5, 6, 2, 6]
-        this.chart.setOption(this.chartOptions)
-      } else {
+      } else if (item == 2) {
         this.typeTitle = '消费支出'
-        this.chartOptions.series[0].data = [5, 8, 2, 8, 2]
-        this.chart.setOption(this.chartOptions)
+      } else {
+        this.typeTitle = '全部支出'
       }
     },
     // 切换类型
@@ -439,12 +428,14 @@ export default {
   width: 95%;
   margin: 0 auto;
 }
+
 .button {
   width: auto;
   height: 30px;
   margin-top: 20px;
   float: right;
   display: flex;
+
   .on {
     width: 50px;
     font-size: 0.28rem;
@@ -458,6 +449,7 @@ export default {
     line-height: 25px;
   }
 }
+
 /* 月份 */
 .month {
   width: 100%;
@@ -465,12 +457,14 @@ export default {
   overflow: hidden;
   padding: 0.4rem 0;
 }
+
 .month ul {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .month ul li {
   font-size: 0.28rem;
   color: #999999;
@@ -478,6 +472,7 @@ export default {
   width: 1.1rem;
   margin: 0 0.2rem;
 }
+
 .month ul li.on {
   font-size: 0.28rem;
   color: #ff7100;
@@ -485,12 +480,14 @@ export default {
   background: #fff1e5;
   border-radius: 0.25rem;
 }
+
 /* 信息总览 */
 .total-info {
   width: 100%;
   height: auto;
   overflow: hidden;
 }
+
 .total-info ul {
   width: 100%;
   display: flex;
@@ -500,6 +497,7 @@ export default {
   background: linear-gradient(to right, #fd738b, #ff2c6a);
   border-radius: 0.2rem;
 }
+
 .total-info ul li {
   width: 100%;
   display: flex;
@@ -508,6 +506,7 @@ export default {
   justify-content: center;
   position: relative;
 }
+
 .total-info ul li::after {
   content: '';
   display: block;
@@ -519,23 +518,28 @@ export default {
   top: 50%;
   transform: translateY(-50%);
 }
+
 .total-info ul li p {
   font-size: 0.38rem;
   color: #ffffff;
 }
+
 .total-info ul li p i {
   font-size: 0.28rem;
   margin-right: 0.02rem;
 }
+
 .total-info ul li p span {
   margin-left: 0.05rem;
   color: #ffffff;
 }
+
 .total-info ul li span {
   font-size: 0.28rem;
   color: #ffc9d7;
   margin-top: 0.1rem;
 }
+
 /* 消费支出 */
 .chart {
   width: 100%;
@@ -546,6 +550,7 @@ export default {
   margin-top: 0.4rem;
   border-radius: 0.2rem;
 }
+
 .chart .title {
   width: 95%;
   margin: 0 auto;
@@ -555,15 +560,18 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+
 .chart .title h3 {
   font-size: 0.34rem;
   color: #333333;
   font-weight: bold;
 }
+
 .chart .title .type {
   display: flex;
   align-items: center;
 }
+
 .chart .title .type span {
   width: 0.8rem;
   height: 0.45rem;
@@ -573,20 +581,25 @@ export default {
   color: #bcbcbc;
   background: #f7f7f7;
 }
+
 .chart .title .type span.on {
   background: #747d99;
   color: #ffffff;
 }
+
 .chart .title .type span:first-child {
   border-radius: 0.1rem 0 0 0.1rem;
 }
+
 .chart .title .type span:last-child {
   border-radius: 0 0.1rem 0.1rem 0;
 }
+
 .chart #chart {
   width: 100%;
   height: 3.8rem;
 }
+
 .detailOne {
   width: 100%;
   height: auto;
@@ -596,6 +609,7 @@ export default {
   margin-top: 0.4rem;
   border-radius: 0.2rem;
 }
+
 .detailOne ul {
   width: 95%;
   display: flex;
@@ -603,6 +617,7 @@ export default {
   margin: 0 auto;
   /* padding: 0 0.1rem; */
 }
+
 .detailOne ul li {
   width: 100%;
   height: 1.1rem;
@@ -616,32 +631,39 @@ export default {
 .detailOne ul li:last-child {
   border-bottom: 0;
 }
+
 .detailOne ul li span {
   font-size: 0.3rem;
   font-weight: bold;
   color: #5b6275;
 }
+
 .detailOne ul li .title {
   display: table;
 }
+
 .detailOne ul li .title .title_inner {
   display: flex;
   align-items: center;
 }
+
 .detailOne ul li .title i {
   display: inline-block;
   width: 0.52rem;
   height: 0.52rem;
   margin-right: 0.2rem;
 }
+
 .detailOne ul li .title i.edu {
   background: url(../../assets/images//icon-edu.png) center center no-repeat;
   background-size: 0.52rem auto;
 }
+
 .detailOne ul li .title i.money {
   background: url(../../assets/images//icon-money.png) center center no-repeat;
   background-size: 0.52rem auto;
 }
+
 .detailOne ul li .title span {
   font-size: 0.3rem;
   color: #5b6275;
@@ -658,6 +680,7 @@ export default {
   margin-top: 0.4rem;
   border-radius: 0.2rem;
 }
+
 .detail .cate {
   width: 95%;
   margin: 0 auto;
@@ -669,6 +692,7 @@ export default {
   /* padding: 0 0.45rem; */
   margin-bottom: 0.2rem;
 }
+
 .detail .cate span {
   font-size: 0.28rem;
   color: #999999;
@@ -678,10 +702,12 @@ export default {
   width: 1.82rem;
   border-radius: 0.6rem;
 }
+
 .detail .cate span.on {
   background: #fff1e5;
   color: #ff7100;
 }
+
 .detail ul {
   width: 95%;
   display: flex;
@@ -689,6 +715,7 @@ export default {
   margin: 0 auto;
   /* padding: 0 0.1rem; */
 }
+
 .detail ul li {
   width: 100%;
   height: 1.1rem;
@@ -698,36 +725,44 @@ export default {
   position: relative;
   border-bottom: 0.01rem solid #f5f5f5;
 }
+
 .detail ul li:last-child {
   border-bottom: 0;
 }
+
 .detail ul li span {
   font-size: 0.3rem;
   font-weight: bold;
   color: #5b6275;
 }
+
 .detail ul li .title {
   display: flex;
   align-items: center;
 }
+
 .detail ul li .title i {
   width: 0.52rem;
   height: 0.52rem;
   margin-right: 0.2rem;
 }
+
 .detail ul li .title i.edu {
   background: url(../../assets/images//icon-edu.png) center center no-repeat;
   background-size: 0.52rem auto;
 }
+
 .detail ul li .title i.money {
   background: url(../../assets/images//icon-money.png) center center no-repeat;
   background-size: 0.52rem auto;
 }
+
 .detail ul li .title span {
   font-size: 0.3rem;
   color: #5b6275;
   font-weight: normal;
 }
+
 /* 右侧浮窗 */
 .fixed-right {
   position: fixed;
@@ -746,12 +781,14 @@ export default {
   box-shadow: 0 0 0.3rem rgba(255, 83, 124, 0.3);
   z-index: 999;
 }
+
 .fixed-right i {
   width: 0.52rem;
   height: 0.53rem;
   background: url(../../assets/images//icon-hg.png) center center no-repeat;
   background-size: 0.52rem auto;
 }
+
 .fixed-right span {
   margin-top: 0.05rem;
   transform: scale(0.95);
