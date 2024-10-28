@@ -191,7 +191,7 @@ public class TemplateController {
 ```
 代码中有mapDropDown这个属性，这个属性存储了模板excel中可以选择的内容，请看以下截图,这块是吧系统上所有的分类都做成了下拉框，
 供用户进行选择
-![img_16.png](img_16.png)
+![img_16.png](images/img_16.png)
 ### 3、业务场景中应用导入excel数据
 进行创建导入对象，excel中的数据都会转成这个对象，注意@ExcelProperty注解，这个注解中的内容对应excel中的行头，必须名称一致，
 才能进行序列化数据成功

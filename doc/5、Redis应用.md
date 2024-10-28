@@ -79,18 +79,18 @@ Windows版本下载地址：https://github.com/MicrosoftArchive/redis/releases
 
 下载 Redis-x64-3.2.100.zip
 
-![media/17297671677548/img_17.png](media/17297671677548/img_17.png)
+![media/17297671677548/img_17.png](images/media/17297671677548/img_17.png)
 
 解压后目录如下:
 
-![media/17297671677548/img_18.png](media/17297671677548/img_18.png)
+![media/17297671677548/img_18.png](images/media/17297671677548/img_18.png)
 打开cmd命令进入redis目录，执行
 ```sheel
 redis-server.exe redis.windows.conf
 ```
 显示如下图所示，表示 Redis 服务已启动
 
-![media/17297671677548/img_20.png](media/17297671677548/img_20.png)
+![media/17297671677548/img_20.png](images/media/17297671677548/img_20.png)
 
 ### 2、docker安装Redis
 ```text
@@ -334,16 +334,16 @@ public class RedisTestController {
 ```
 
 ### 3、吧test接口进行配置为不鉴权，不然测试的话还需要token信息,修改 WebMvcConfig 类
-![](media/17297671677548/17297676054114.jpg)
+![](images/media/17297671677548/17297676054114.jpg)
 ### 4、测试接口
 4.1、测试存储redis数据接口
 浏览器直接访问 http://127.0.0.1:8089/express/test/redis/setRedisData
 访问之后可以看到控制台打印：redis数据存储成功
-![](media/17297671677548/17297674980358.jpg)
+![](images/media/17297671677548/17297674980358.jpg)
 4.2、测试获取redis数据接口
 浏览器直接访问 http://127.0.0.1:8089/express/test/redis/getRedisData
 访问之后可以看到控制台打印，存储的数据
-![](media/17297671677548/17297676484464.jpg)
+![](images/media/17297671677548/17297676484464.jpg)
 测试到此结束
 ## 九、Redis实际应用业务
 ### 1、登陆存储Token场景
