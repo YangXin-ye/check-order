@@ -31,20 +31,20 @@ public class BankController {
         bank.setCreateTime(new Date());
         bank.setBankType("储蓄卡");
         switch (bank.getName()){
-            case "建设银行":
-                bank.setBankLogo("/img/jianhang.svg");
-                bank.setLimitNum("20");
-                bank.setBankBg("#3973c4");
+            case "中国工商银行":
+                bank.setBankLogo("gs");
+                bank.setLimitNum("20万元");
+                bank.setBankBg("card-red");
                 break;
-            case "工商银行":
-                bank.setBankLogo("/img/gongshang.svg");
-                bank.setLimitNum("50");
-                bank.setBankBg("#fe6063");
+            case "中国建设银行":
+                bank.setBankLogo("jh");
+                bank.setLimitNum("20万元");
+                bank.setBankBg("card-blue");
                 break;
             case "农业银行":
-                bank.setBankLogo("/img/nonghang.svg");
-                bank.setLimitNum("40");
-                bank.setBankBg("#32977f");
+                bank.setBankLogo("nh");
+                bank.setLimitNum("20万元");
+                bank.setBankBg("card-green");
                 break;
         }
         bankService.save(bank);
@@ -60,6 +60,23 @@ public class BankController {
 
     @PostMapping("update")
     public R update(@RequestBody Bank bank) {
+        switch (bank.getName()){
+            case "中国工商银行":
+                bank.setBankLogo("gs");
+                bank.setLimitNum("20万元");
+                bank.setBankBg("card-red");
+                break;
+            case "中国建设银行":
+                bank.setBankLogo("jh");
+                bank.setLimitNum("20万元");
+                bank.setBankBg("card-blue");
+                break;
+            case "农业银行":
+                bank.setBankLogo("nh");
+                bank.setLimitNum("20万元");
+                bank.setBankBg("card-green");
+                break;
+        }
         bankService.updateById(bank);
         return R.ok();
     }
@@ -71,11 +88,11 @@ public class BankController {
                 .eq(Bank::getDelete,0)
                 .eq(Bank::getUserId,user.getId())
                 .list();
-        for (Bank bank : list) {
-            if(bank.getBankNum().length()>4){
-                bank.setBankNum(bank.getBankNum().substring(0,4));
-            }
-        }
+//        for (Bank bank : list) {
+//            if(bank.getBankNum().length()>4){
+//                bank.setBankNum(bank.getBankNum().substring(0,4));
+//            }
+//        }
         return R.ok().put("data", list);
     }
 }
