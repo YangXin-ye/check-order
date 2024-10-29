@@ -222,6 +222,7 @@ public class ImportDataVo {
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
+            //这段是吧文件流Excel数据进行转成ImportDataVo对象，然后下面解析数据以后，吧数据进行发送到MQ中，MQ后台进行处理导入数据
             List<ImportDataVo> dataList = EasyExcel.read(file.getInputStream())
                     .head(ImportDataVo.class)
                     .sheet()
@@ -271,11 +272,3 @@ public class ImportDataVo {
 
     }
 ```
-导入接口，接收到文件流以后，进行解析excel
-```java
-List<ImportDataVo> dataList = EasyExcel.read(file.getInputStream())
-                    .head(ImportDataVo.class)
-                    .sheet()
-                    .doReadSync();
-```
-这段是吧文件流Excel数据进行转成ImportDataVo对象，然后下面解析数据以后，吧数据进行发送到MQ中，MQ后台进行处理导入数据
